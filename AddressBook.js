@@ -118,3 +118,10 @@ if(removeContacts){
 }else{
     console.log("\nNo such contact found");
 }
+
+//Find number of contacts (UC6)
+function countContacts(count) {
+    return count + 1;
+}
+let countContact = addressBookArray.reduce(countContacts,0);
+console.log(countContact);
