@@ -108,3 +108,13 @@ if(contacts){
 }else{
     console.log("No such contact found");
 }
+
+//Find and delete contact (UC5)
+let removeContacts = addressBookArray.find(contact => contact.firstName == "Sudheer");
+if(removeContacts){
+    addressBookArray.pop();
+    console.log("\nContact successfully deleted.");
+    console.log(addressBookArray.toString());
+}else{
+    console.log("\nNo such contact found");
+}
