@@ -1,9 +1,9 @@
 console.log("Welcome to Address Book System\n");
 const nameRegex = RegExp('^[A-Z]{1}[a-z]{3,}$');
-const addressRegex = RegExp('^[a-zA-z0-9#,]{4,}$');
-const cityStateRegex = RegExp('^[a-zA-z]{4,}$');
+const addressRegex = RegExp('^[a-zA-Z0-9#,]{4,}$');
+const cityStateRegex = RegExp('^[a-zA-Z]{4,}$');
 const zipRegex = RegExp("^[0-9]{3}\\s{0,1}[0-9]{3}$");
-const phoneNumberRegex = RegExp("^[0-9]{2}\\s{1}[0-9]{10}$");
+const phoneNumberRegex = RegExp("^[6-9]{1}[0-9]{9}$");
 const emailRegex = RegExp("^[a-zA-Z]+[a-zA-Z0-9]*[- . + _]?[a-zA-Z0-9]+[@]{1}[a-z0-9]+[.]{1}[a-z]+[.]?[a-z]+$");
 
 class AddressBook{
@@ -55,24 +55,24 @@ class AddressBook{
         } else throw "STATE is Incorrect";
     }
 
-    getzip(){return this._zip;}
+    getzip(){return this.zip;}
     setzip(zip){
         if (zipRegex.test(zip))
-            this._zip = zip;
+            this.zip = zip;
         else throw "ZIP is Incorrect";
     }
 
-    getphoneNumber(){return this._phoneNumber;}
+    getphoneNumber(){return this.phoneNumber;}
     setphoneNumber(phoneNumber){
         if (phoneNumberRegex.test(phoneNumber))
-            this._phoneNumber = phoneNumber;
+            this.phoneNumber = phoneNumber;
         else throw "PHONE NUMBER is Incorrect";
     }
 
-    getemail(){return this._email;}
+    getemail(){return this.email;}
     setemail(email){
         if (emailRegex.test(email))
-            this._email = email;
+            this.email = email;
         else throw "EMAIL ADDRESS is Incorrect";
     }
 
@@ -85,12 +85,26 @@ class AddressBook{
 
 //Creating new address book array (UC3)
 let addressBookArray = new Array();
-try{
-    let addressBook = new AddressBook("Rahul", "Jha" , "India" , "Bangalore", "Karnataka", 231234, 634562672, "rahul_jha@ggg.comb");
-    console.log(addressBook.toString());
-}catch(e){console.log(e);}
 
 try{  //Using push to store details in an array by invoking the class constructor
     addressBookArray.push(new AddressBook("Shubham", "Kumar" , "India" , "Bokaro", "Jharkhand", 243243, 345728462, "shubha@kkk.comb"))
 }catch(e){console.log(e);}
 console.log(addressBookArray);
+
+//Finding and editing contact (UC4)
+let contacts = addressBookArray.find(contact => contact.firstName == "Shubham");
+if(contacts){
+    addressBookArray.pop();
+    contacts.setFirstName("Sudheer");
+    contacts.setLastName("Kumar");
+    contacts.setAddress("WestGodavari");
+    contacts.setCity("Hyderabad");
+    contacts.setState("Telangana");
+    contacts.setzip(123456);
+    contacts.setphoneNumber(9191919191);
+    contacts.setemail("sudheer123@gmail.com");
+    addressBookArray.push(contacts);
+    console.log(addressBookArray.toString());
+}else{
+    console.log("No such contact found");
+}
