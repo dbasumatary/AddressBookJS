@@ -86,10 +86,20 @@ class AddressBook{
 //Creating new address book array (UC3)
 let addressBookArray = new Array();
 
-try{  //Using push to store details in an array by invoking the class constructor
-    addressBookArray.push(new AddressBook("Shubham", "Kumar" , "India" , "Bokaro", "Jharkhand", 243243, 345728462, "shubha@kkk.comb"))
-}catch(e){console.log(e);}
-console.log(addressBookArray);
+//Checking for duplicate entry in addressbook before adding (UC7)
+function addContact(contact) {
+    let existingContact = addressBookArray.filter(c => c.firstName === contact.firstName && c.lastName === contact.lastName);
+    if (existingContact.length === 0) {
+      addressBookArray.push(contact);
+      console.log("Contact added successfully!");
+    } else {
+      console.log("Contact already exists!");
+    }
+}
+addContact(new AddressBook("Tanuja", "Chaugule", "India", "Mumbai", "Maharashtra", 243243, 3457284162, "tanuja@kkk.com"));
+addContact(new AddressBook("Praveen", "Kumar", "WestGodavari", "Bangalore", "Karnataka", 123456, 9191919191, "praveen99@gmail.com"));
+addContact(new AddressBook("Shubham", "Kumar", "India", "Bokaro", "Jharkhand", 543427, 8963753022, "shubham@kkk.com"));
+console.log(`\n`);
 
 //Finding and editing contact (UC4)
 let contacts = addressBookArray.find(contact => contact.firstName == "Shubham");
@@ -104,7 +114,8 @@ if(contacts){
     contacts.setphoneNumber(9191919191);
     contacts.setemail("sudheer123@gmail.com");
     addressBookArray.push(contacts);
-    console.log(addressBookArray.toString());
+    addressBookArray.forEach((contact) => console.log(contact.toString()));
+    //console.log(addressBookArray.toString());
 }else{
     console.log("No such contact found");
 }
@@ -114,7 +125,8 @@ let removeContacts = addressBookArray.find(contact => contact.firstName == "Sudh
 if(removeContacts){
     addressBookArray.pop();
     console.log("\nContact successfully deleted.");
-    console.log(addressBookArray.toString());
+    addressBookArray.forEach((contact) => console.log(contact.toString()));
+    //console.log(addressBookArray.toString());
 }else{
     console.log("\nNo such contact found");
 }
@@ -124,4 +136,4 @@ function countContacts(count) {
     return count + 1;
 }
 let countContact = addressBookArray.reduce(countContacts,0);
-console.log(countContact);
+console.log(`\nNumber of contacts: ${countContact}`);
